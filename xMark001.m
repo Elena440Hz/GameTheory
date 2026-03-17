@@ -1,35 +1,13 @@
-%% xMark001.m - Αναπαραγωγή Σχημάτων 4 και 5 της ΕΛΚ
-clear; clc; close all;
+% Script to simulate Markov dynamics and draw its state transition graph
 
-fprintf('========================================\n');
-fprintf('ΑΝΑΠΑΡΑΓΩΓΗ ΣΧΗΜΑΤΩΝ 4 ΚΑΙ 5 - ΕΡΓΑΣΙΑ ΛΑΖΑΡΙΔΗ-ΚΕΧΑΓΙΑ\n');
-fprintf('========================================\n\n');
+clear all; clc
+M=4; 					% Number of Centipede stages
+T=10; 					% Number of one-shot centipedes played
+p=3/4;					% proportion of payoff received by terminating player
+N=10;					% population size
+Tm=100;					% final time of simulating Markov dynamics
+s0=[3 4 3];				% initial Markov state
 
-%% Παράμετροι
-N = 10;     % μέγεθος πληθυσμού
-M = 4;      % αριθμός σταδίων
-T = 10;     % αριθμός γύρων ISC
+P=StateTransitionGraph(p,M,T,N);
+s=MarkDyn(s0,p,M,T,N,P,Tm); figure(2); plot(s)
 
-fprintf('Παράμετροι:\n');
-fprintf('  N = %d (πληθυσμός)\n', N);
-fprintf('  M = %d (στάδια)\n', M);
-fprintf('  T = %d (γύροι)\n\n', T);
-
-%% Σχήμα 4: p = 3/4 > 2/3
-fprintf('Δημιουργία Σχήματος 4 (p = 3/4)...\n');
-PlotTransitionGraph(0.75, M, T, N);
-title('Σχήμα 4: Γράφημα Μεταβάσεων για p = 3/4 > 2/3');
-
-%% Σχήμα 5: p = 3/5 < 2/3
-fprintf('Δημιουργία Σχήματος 5 (p = 3/5)...\n');
-PlotTransitionGraph(0.6, M, T, N);
-title('Σχήμα 5: Γράφημα Μεταβάσεων για p = 3/5 < 2/3');
-
-%% Επιπλέον: Συγκριτικό γράφημα με δύο χρώματα
-fprintf('Δημιουργία συγκριτικού γραφήματος...\n');
-PlotTransitionGraphColored(0.75, M, T, N);
-title('Συγκριτικό Γράφημα: p=3/4 (κόκκινο) και p=1 (μπλε)');
-
-fprintf('\n========================================\n');
-fprintf('ΟΛΟΚΛΗΡΩΣΗ - ΤΑ ΣΧΗΜΑΤΑ 4 ΚΑΙ 5 ΔΗΜΙΟΥΡΓΗΘΗΚΑΝ\n');
-fprintf('========================================\n');
